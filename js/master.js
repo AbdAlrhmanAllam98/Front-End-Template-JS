@@ -102,5 +102,55 @@ function removeActiveClassFromElements(arrayOfElements){
 
 // END SETTINGS BOX
 
-// START LANDING PAGE
-// END LANDING PAGE
+// START ANIMATE SKILLS WHEN REACHING THE SECTION
+let skills=document.querySelector(".skills");
+let progressesSkills=skills.querySelectorAll("progress");
+window.onscroll=function(){
+    if(window.scrollY >= (skills.offsetTop+skills.clientHeight-window.innerHeight)){
+        progressesSkills.forEach(progress => {
+            progress.setAttribute("value",progress.dataset.value);
+        });       
+    }
+}
+// END ANIMATE SKILLS WHEN REACHING THE SECTION
+
+// START POPUP BOX FOR OUR-GALLERY SECTION
+let gallery=document.querySelectorAll(".gallery img");
+let popupOverlay,popupBox;
+gallery.forEach(img => {
+    img.addEventListener("click",e=>{
+        // ADD OVERLAY ELEMENT 
+        popupOverlay=document.createElement("div");
+        popupOverlay.className="popup-overlay";
+        document.body.appendChild(popupOverlay);
+        // ADD POPUP BOX TO CARRY OUT TARGET IMAGE 
+        popupBox=document.createElement("div");
+        popupBox.className="popup-box";
+        // ADD ALTERNATIVE TEXT OF IMAGE 
+        if(img.alt!=null){
+            let imageAlt=document.createElement("h3");
+            let imageAltText=document.createTextNode(img.alt);
+            imageAlt.appendChild(imageAltText);
+            popupBox.appendChild(imageAlt)
+        }
+        // ADD TARGET IMAGE TO POPUP BOX 
+        let popupImage=document.createElement("img");
+        popupImage.src=img.src;
+        popupBox.appendChild(popupImage);
+        document.body.appendChild(popupBox);
+        // ADD CLOSED BUTTON TO CLOSE POPUP-BOX AND POPUP OVERLAY 
+        let closedButton=document.createElement("span");
+        let closedButtonText=document.createTextNode("X");
+        closedButton.className="closed-button";
+        closedButton.appendChild(closedButtonText);
+        popupBox.appendChild(closedButton);
+    })
+});
+// CLOSE POPUP-BOX AND POPUP OVERLAY 
+document.addEventListener("click",function(e){
+    if(e.target.className=='closed-button'){
+        e.target.parentNode.remove();
+        popupOverlay.remove();
+    }    
+});
+// END POPUP BOX FOR OUR-GALLERY SECTION

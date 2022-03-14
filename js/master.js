@@ -1,8 +1,35 @@
-// Start The GLOBE 
+// START GLOBAL FUNCTION 
+// SAVE VALUE TO LOCAL STORAGE 
 function saveToLocalStorage(key,value){
     localStorage.setItem(key,value);
 }
-// END The GLOBE 
+// REMOVE ACTIVE CLASS FROM ALL ELEMENTS OF ANY COLLECTION
+function handleActiveClassFromElements(arrayOfElements,activeElement){
+    if(activeElement===null){
+        arrayOfElements.forEach(el => {
+            el.classList.remove("active");
+        });
+    }
+    else{
+        arrayOfElements.forEach(el => {
+            el.classList.remove("active");
+        });
+        activeElement.classList.add("active")
+    }
+}
+// SCROLL TO THIS ELEMENT SMOOTHLY
+function scrollToAnyWhere(elements){
+    elements.forEach(element => {
+        element.addEventListener("click",e=>{
+            e.preventDefault();
+            document.querySelector(`.${e.target.dataset.section}`).scrollIntoView({
+                behavior:'smooth'
+            });
+        })
+    });
+}
+// END GLOBAL FUNCTION 
+
 // START SETTINGS BOX
 // START Toggle classes at Settings Box
 document.querySelector(".settings-box .settings-icon i").onclick=function(){
@@ -21,8 +48,7 @@ colorsLi.forEach(li => {
         // SET COLOR IN ROOT 
         document.documentElement.style.setProperty("--main-color",e.currentTarget.dataset.color);
         // TOGGLE CLASS ACTIVE FROM ALL LI ELEMENTS 
-        removeActiveClassFromElements(colorsLi);
-        e.currentTarget.classList.add("active");
+        handleActiveClassFromElements(colorsLi,e.target);
         // SAVE COLOR IN LOCAL STORAGE 
         saveToLocalStorage("main-color",e.currentTarget.dataset.color);
     })
@@ -31,7 +57,7 @@ colorsLi.forEach(li => {
 let mainColorLocalStorage=localStorage.getItem("main-color");
 if(mainColorLocalStorage!=null){
     document.documentElement.style.setProperty("--main-color",mainColorLocalStorage);
-    removeActiveClassFromElements(colorsLi);
+    handleActiveClassFromElements(colorsLi,null);
     colorsLi.forEach(li => {
         if(li.dataset.color==mainColorLocalStorage){
             li.classList.add("active");
@@ -48,8 +74,7 @@ randomizeImages();
 randomBackgroundElements.forEach(span => {
     span.addEventListener("click",e=>{
         // TOGGLE CLASS ACTIVE FROM TWO SPAN  
-        removeActiveClassFromElements(randomBackgroundElements);
-        e.currentTarget.classList.add("active"); 
+        handleActiveClassFromElements(randomBackgroundElements,e.target);
         // CHECK CHOICE OF RANDOM BACKGROUND IMAGES THEN OPERATE
         checkRandomizeBackground(e.currentTarget.dataset.random);
         // SAVE THE OPTION AND THE IMAGE TO LOCAL STORAGE
@@ -62,7 +87,7 @@ let randomBackroundOptionLocalStorage=localStorage.getItem("background-option");
 let randomBackroundImageLocalStorage=localStorage.getItem("background-image");
 if(randomBackroundOptionLocalStorage!=null){
     checkRandomizeBackground(randomBackroundOptionLocalStorage);
-    removeActiveClassFromElements(randomBackgroundElements);
+    handleActiveClassFromElements(randomBackgroundElements,null);
     if(randomBackroundOptionLocalStorage==randomBackgroundElements[0].dataset.random){
         randomBackgroundElements[0].classList.add("active");
     }
@@ -93,14 +118,104 @@ function randomizeImages(){
     }
 }
 // END RANDOM BACKROUND
-// REMOVE ACTIVE CLASS FROM ALL ELEMENTS OF ANY COLLECTION
-function removeActiveClassFromElements(arrayOfElements){
-    arrayOfElements.forEach(el => {
-        el.classList.remove("active");
-    });
+// START SHOW BULLETS 
+// KEEP TRACK OF NAVIGATION BULLETS OPTIONS 
+let navBullet=document.querySelector(".nav-bullet");
+let showBulletsOption=document.querySelectorAll(".bullets-option span");
+showBulletsOption.forEach(span => {
+    span.addEventListener("click",e=>{
+        handleActiveClassFromElements(showBulletsOption,e.target);
+        if(e.target.dataset.display=="block"){
+            navBullet.style.display="block";
+        }
+        else{
+            navBullet.style.display="none";
+        }
+        saveToLocalStorage("bullets-show",e.target.dataset.display);
+    }) 
+});
+// SET NAVIGATION BULLETS BASED ON LOCAL STORAGE 
+if(localStorage.getItem("bullets-show")!=null){
+    if(localStorage.getItem("bullets-show")=="block"){
+        navBullet.style.display="block";
+        handleActiveClassFromElements(showBulletsOption,showBulletsOption[0]);
+    }
+    else if(localStorage.getItem("bullets-show")=="none"){
+        navBullet.style.display="none";
+        handleActiveClassFromElements(showBulletsOption,showBulletsOption[1]);
+    }
 }
-
+// END SHOW BULLETS 
+// START RESET OPTION BUTTON 
+document.querySelector(".reset-option").onclick=function(){
+    // REMOVE ITEMS FROM LOCAL STORAGE 
+    localStorage.removeItem("background-image");
+    localStorage.removeItem("bullets-show");
+    localStorage.removeItem("background-option");
+    localStorage.removeItem("main-color");
+    // RELOAD THE PAGE 
+    window.location.reload();
+}
+// END RESET OPTION BUTTON 
 // END SETTINGS BOX
+
+// START NAVIGATION BULLETS WITH HEADER LINKS
+
+let unOrderList=document.querySelector("header ul");
+let allSections=["skills","gallery","timeline","features","testimonials"];
+// CREATE [li a] NAV BAR IN HEADER
+allSections.forEach(section=>{
+   let list=document.createElement("li");
+   let link=document.createElement("a");
+   link.href="#";
+   link.setAttribute("data-section",section);
+   let linkText=document.createTextNode(section.toUpperCase());
+   link.appendChild(linkText);
+   list.appendChild(link);
+   unOrderList.appendChild(list);
+});
+// CREATE ALL BULLETS OF NAV-BULLET  
+allSections.forEach(bullet=>{
+    let bulletElement=document.createElement("div");
+    bulletElement.className="bullet";
+    bulletElement.setAttribute("data-section",bullet);
+    let tooltip=document.createElement("div");
+    tooltip.className="tooltip";
+    let tooltipText=document.createTextNode(bullet);
+    tooltip.appendChild(tooltipText);
+    bulletElement.appendChild(tooltip);
+    navBullet.appendChild(bulletElement);
+ });
+ // ADD ACTIVE CLASS AT ACTIVE LINK AND REMOVE ACTIVE CLASS FROM OTHERS
+ let allBullets=document.querySelectorAll(".nav-bullet .bullet");
+ let allLinks=document.querySelectorAll("header li a");
+ allBullets.forEach(bullet => {
+    bullet.addEventListener("click",e=>{
+        handleActiveClassFromElements(allBullets,e.target);
+        handleActiveClassFromElements(allLinks,null);
+        allLinks.forEach(link => {
+            if(e.target.dataset.section===link.dataset.section){
+                link.classList.add("active");
+            }
+         });
+     });
+ });
+ // ADD ACTIVE CLASS AT ACTIVE LINK AND REMOVE ACTIVE CLASS FROM OTHERS
+allLinks.forEach(link => {
+    link.addEventListener("click",e=>{
+        handleActiveClassFromElements(allLinks,e.target);
+        handleActiveClassFromElements(allBullets,null);
+        allBullets.forEach(bullet => {
+            if(e.target.dataset.section==bullet.dataset.section){
+                bullet.classList.add("active");
+            }
+        });
+    });
+});
+// SCROLL TO CHOICED SECTION BY USER FROM [li || bullets]
+scrollToAnyWhere(allBullets);
+scrollToAnyWhere(allLinks);
+// END NAVIGATION BULLETS WITH HEADER LINKS
 
 // START ANIMATE SKILLS WHEN REACHING THE SECTION
 let skills=document.querySelector(".skills");

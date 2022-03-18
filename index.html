@@ -60,15 +60,25 @@
     <!-- Start Header -->
     <header>
         <div class="logo">Special Design</div>
-        <ul>
+        <ul class="nav-bar">
         </ul>
+        <div class="toggle-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="aside-menu">
+                <ul>
+                </ul>
+            </div>
+        </div>
+
     </header>
     <!-- End Header -->
     <!-- Start Landing Page -->
     <div class="landing-page section">
         <div class="container">
             <div class="landing-info">
-                <h2>We Are <span>Creative</span> Agency</h2>
+                <h2>We Are <span class="text-main-color">Creative</span> Agency</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero id officia facilis eveniet, modi repellat reiciendis iure adipisci distinctio quis deserunt, veniam voluptatibus commodi iste similique consequatur fuga laboriosam obcaecati.</p>
             </div>
         </div>
@@ -105,7 +115,7 @@
     <div class="gallery section">
         <div class="container">
             <h2>OUR GALLERY</h2>
-            <div class="images-box grid-4">
+            <div class="grid-4">
                 <img src="images/landing-0.jpg" alt="Gallery-1" >
                 <img src="images/landing-1.jpg" alt="Gallery-2" >
                 <img src="images/landing-2.jpg" alt="Gallery-3" >
@@ -122,47 +132,47 @@
     <div class="timeline section-background">
         <div class="container">
             <div class="timeline-content">
-                <div class="year">2022</div>
+                <div class="year background-main-color">2022</div>
                 <div class="left">
                     <div class="content">
-                        <h3>Testing Heading</h3>
+                        <h3 class="text-main-color">Testing Heading</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quia reprehenderit. Debitis eum aspernatur voluptatem enim? Eum quas explicabo nobis delectus modi in nesciunt, illo magnam tempore enim quisquam sed?</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="right">
                     <div class="content">
-                        <h3>Testing Heading</h3>
+                        <h3 class="text-main-color">Testing Heading</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quia reprehenderit. Debitis eum aspernatur voluptatem enim? Eum quas explicabo nobis delectus modi in nesciunt, illo magnam tempore enim quisquam sed?</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="right">
                     <div class="content">
-                        <h3>Testing Heading</h3>
+                        <h3 class="text-main-color">Testing Heading</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quia reprehenderit. Debitis eum aspernatur voluptatem enim? Eum quas explicabo nobis delectus modi in nesciunt, illo magnam tempore enim quisquam sed?</p>
                     </div>
                 </div>
             </div>
             <div class="timeline-content">
-                <div class="year">2020</div>
+                <div class="year background-main-color" >2020</div>
                 <div class="left">
                     <div class="content">
-                        <h3>Testing Heading</h3>
+                        <h3 class="text-main-color">Testing Heading</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quia reprehenderit. Debitis eum aspernatur voluptatem enim? Eum quas explicabo nobis delectus modi in nesciunt, illo magnam tempore enim quisquam sed?</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="right">
                     <div class="content">
-                        <h3>Testing Heading</h3>
+                        <h3 class="text-main-color">Testing Heading</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quia reprehenderit. Debitis eum aspernatur voluptatem enim? Eum quas explicabo nobis delectus modi in nesciunt, illo magnam tempore enim quisquam sed?</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="left">
                     <div class="content">
-                        <h3>Testing Heading</h3>
+                        <h3 class="text-main-color">Testing Heading</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, quia reprehenderit. Debitis eum aspernatur voluptatem enim? Eum quas explicabo nobis delectus modi in nesciunt, illo magnam tempore enim quisquam sed?</p>
                     </div>
                 </div>
@@ -216,8 +226,8 @@
                 <p>i am very happy with product it`s amazing and i recieve it very fast and the price was perfect</p>
                 <div class="personal-info">
                     <img src="https://via.placeholder.com/80/EEE" alt="">
-                    <h4>Ahmed BASMY</h4>
-                    <p>Qaaady</p>
+                    <h4>Ahmed KAMAL</h4>
+                    <p>Accountant</p>
                 </div>
             </div>
             <div class="testimonial">
@@ -227,7 +237,6 @@
                     <h4>Ahmed Hassan</h4>
                     <p>HR</p>
                 </div>
-
             </div>
             <div class="testimonial">
                 <p>i am very happy with product it`s amazing and i recieve it very fast and the price was perfect</p>
@@ -241,6 +250,29 @@
         <div class="clearfix"></div>
     </div>
     <!-- END OUR TESTIMONIALS -->
+    <!-- START CONTACT US  -->
+    <div class="contact section">
+        <div class="container">
+            <h2>CONTACT US</h2>
+            <form action="#">
+                <div class="left">
+                    <input type="text" name="userName" placeholder="Your User Name">
+                    <input type="text" name="userPhone" placeholder="Your Phone ">
+                    <input type="email" name="userEmail" placeholder="Your User Email">
+                </div>
+                <div class="right">
+                    <textarea name="subject" placeholder="Your Message ... "></textarea>
+                    <input type="submit" value="SEND" class="background-main-color">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END CONTACT US -->
+    <!-- START FOOTER -->
+    <footer>
+        &copy;  <span class="text-main-color">Allam</span>
+    </footer>
+    <!-- END FOOTER -->
     <script src="js/master.js"></script>
 </body>
 </html>

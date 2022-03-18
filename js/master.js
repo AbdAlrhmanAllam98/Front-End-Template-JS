@@ -160,27 +160,36 @@ document.querySelector(".reset-option").onclick=function(){
 // END SETTINGS BOX
 
 // START NAVIGATION BULLETS WITH HEADER LINKS
-
-let unOrderList=document.querySelector("header ul");
-let allSections=["skills","gallery","timeline","features","testimonials"];
+let unOrderList=document.querySelector("header .nav-bar");
+let unOrderListAsideMenu=document.querySelector(".toggle-menu .aside-menu ul");
+let allSections=["skills","gallery","timeline","features","testimonials","contact"];
 // CREATE [li a] NAV BAR IN HEADER
 allSections.forEach(section=>{
-   let list=document.createElement("li");
-   let link=document.createElement("a");
-   link.href="#";
-   link.setAttribute("data-section",section);
-   let linkText=document.createTextNode(section.toUpperCase());
-   link.appendChild(linkText);
-   list.appendChild(link);
-   unOrderList.appendChild(list);
+    let list=addLinkFromSections(section);
+    unOrderList.appendChild(list);
 });
+allSections.forEach(section=>{
+    let list=addLinkFromSections(section);
+    unOrderListAsideMenu.appendChild(list);
+});
+// ADD LINK TO NAV BAR AND ASIDE BAR FROM SECTION ARRAY 
+function addLinkFromSections(section){
+    let list=document.createElement("li");
+    let link=document.createElement("a");
+    link.href="#";
+    link.setAttribute("data-section",section);
+    let linkText=document.createTextNode(section.toUpperCase());
+    link.appendChild(linkText);
+    list.appendChild(link);
+    return list;
+}
 // CREATE ALL BULLETS OF NAV-BULLET  
 allSections.forEach(bullet=>{
     let bulletElement=document.createElement("div");
     bulletElement.className="bullet";
     bulletElement.setAttribute("data-section",bullet);
     let tooltip=document.createElement("div");
-    tooltip.className="tooltip";
+    tooltip.className="tooltip background-main-color";
     let tooltipText=document.createTextNode(bullet);
     tooltip.appendChild(tooltipText);
     bulletElement.appendChild(tooltip);
@@ -189,6 +198,8 @@ allSections.forEach(bullet=>{
  // ADD ACTIVE CLASS AT ACTIVE LINK AND REMOVE ACTIVE CLASS FROM OTHERS
  let allBullets=document.querySelectorAll(".nav-bullet .bullet");
  let allLinks=document.querySelectorAll("header li a");
+ let allAsideLinks=document.querySelectorAll("header .aside-menu li");
+ 
  allBullets.forEach(bullet => {
     bullet.addEventListener("click",e=>{
         handleActiveClassFromElements(allBullets,e.target);
@@ -216,6 +227,35 @@ allLinks.forEach(link => {
 scrollToAnyWhere(allBullets);
 scrollToAnyWhere(allLinks);
 // END NAVIGATION BULLETS WITH HEADER LINKS
+
+// START NAV BAR HEADER 
+let toggleMenu=document.querySelector(".toggle-menu");
+toggleMenu.onclick=function(e){
+    e.stopPropagation();
+    unOrderListAsideMenu.classList.add("open");
+}
+document.addEventListener("click",e=>{    
+    if(e.target!=toggleMenu && e.target.parentNode!=unOrderListAsideMenu){
+        if(unOrderListAsideMenu.classList.contains("open")){
+            unOrderListAsideMenu.classList.remove("open");
+        }
+    }
+});
+
+allAsideLinks.forEach(link => {
+    link.addEventListener("click",e=>{
+        handleActiveClassFromElements(allLinks,e.target.childNodes[0]);
+        document.querySelector(`.${e.target.childNodes[0].dataset.section}`).scrollIntoView();
+        handleActiveClassFromElements(allBullets,null);
+        allBullets.forEach(bullet => {
+            if(e.target.childNodes[0].dataset.section==bullet.dataset.section){
+                bullet.classList.add("active");
+            }
+        });
+    });
+});
+
+// END NAV BAR HEADER 
 
 // START ANIMATE SKILLS WHEN REACHING THE SECTION
 let skills=document.querySelector(".skills");
@@ -245,6 +285,7 @@ gallery.forEach(img => {
         if(img.alt!=null){
             let imageAlt=document.createElement("h3");
             let imageAltText=document.createTextNode(img.alt);
+            imageAlt.className="text-main-color";
             imageAlt.appendChild(imageAltText);
             popupBox.appendChild(imageAlt)
         }
@@ -256,7 +297,7 @@ gallery.forEach(img => {
         // ADD CLOSED BUTTON TO CLOSE POPUP-BOX AND POPUP OVERLAY 
         let closedButton=document.createElement("span");
         let closedButtonText=document.createTextNode("X");
-        closedButton.className="closed-button";
+        closedButton.className="closed-button background-main-color";
         closedButton.appendChild(closedButtonText);
         popupBox.appendChild(closedButton);
     })

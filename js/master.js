@@ -158,7 +158,11 @@ document.querySelector(".reset-option").onclick=function(){
 }
 // END RESET OPTION BUTTON 
 // END SETTINGS BOX
-
+// START HEADROOM HEADER 
+var myElement = document.querySelector("header");
+var headroom  = new Headroom(myElement);
+headroom.init();
+// END HEADROOM HEADER 
 // START NAVIGATION BULLETS WITH HEADER LINKS
 let unOrderList=document.querySelector("header .nav-bar");
 let unOrderListAsideMenu=document.querySelector(".toggle-menu .aside-menu ul");
@@ -176,6 +180,7 @@ allSections.forEach(section=>{
 function addLinkFromSections(section){
     let list=document.createElement("li");
     let link=document.createElement("a");
+    link.className="text-white";
     link.href="#";
     link.setAttribute("data-section",section);
     let linkText=document.createTextNode(section.toUpperCase());
@@ -186,10 +191,10 @@ function addLinkFromSections(section){
 // CREATE ALL BULLETS OF NAV-BULLET  
 allSections.forEach(bullet=>{
     let bulletElement=document.createElement("div");
-    bulletElement.className="bullet";
+    bulletElement.className="bullet background-white";
     bulletElement.setAttribute("data-section",bullet);
     let tooltip=document.createElement("div");
-    tooltip.className="tooltip background-main-color";
+    tooltip.className="tooltip background-main-color text-white";
     let tooltipText=document.createTextNode(bullet);
     tooltip.appendChild(tooltipText);
     bulletElement.appendChild(tooltip);
@@ -228,7 +233,7 @@ scrollToAnyWhere(allBullets);
 scrollToAnyWhere(allLinks);
 // END NAVIGATION BULLETS WITH HEADER LINKS
 
-// START NAV BAR HEADER 
+// START ASIDE BAR HEADER 
 let toggleMenu=document.querySelector(".toggle-menu");
 toggleMenu.onclick=function(e){
     e.stopPropagation();
@@ -255,7 +260,7 @@ allAsideLinks.forEach(link => {
     });
 });
 
-// END NAV BAR HEADER 
+// END ASIDE BAR HEADER 
 
 // START ANIMATE SKILLS WHEN REACHING THE SECTION
 let skills=document.querySelector(".skills");
@@ -271,7 +276,7 @@ window.onscroll=function(){
 
 // START POPUP BOX FOR OUR-GALLERY SECTION
 let gallery=document.querySelectorAll(".gallery img");
-let popupOverlay,popupBox;
+let popupOverlay,popupBox,closedButton;
 gallery.forEach(img => {
     img.addEventListener("click",e=>{
         // ADD OVERLAY ELEMENT 
@@ -280,7 +285,7 @@ gallery.forEach(img => {
         document.body.appendChild(popupOverlay);
         // ADD POPUP BOX TO CARRY OUT TARGET IMAGE 
         popupBox=document.createElement("div");
-        popupBox.className="popup-box";
+        popupBox.className="popup-box background-white";
         // ADD ALTERNATIVE TEXT OF IMAGE 
         if(img.alt!=null){
             let imageAlt=document.createElement("h3");
@@ -295,7 +300,7 @@ gallery.forEach(img => {
         popupBox.appendChild(popupImage);
         document.body.appendChild(popupBox);
         // ADD CLOSED BUTTON TO CLOSE POPUP-BOX AND POPUP OVERLAY 
-        let closedButton=document.createElement("span");
+        closedButton=document.createElement("span");
         let closedButtonText=document.createTextNode("X");
         closedButton.className="closed-button background-main-color";
         closedButton.appendChild(closedButtonText);
@@ -303,10 +308,10 @@ gallery.forEach(img => {
     })
 });
 // CLOSE POPUP-BOX AND POPUP OVERLAY 
-document.addEventListener("click",function(e){
-    if(e.target.className=='closed-button'){
-        e.target.parentNode.remove();
+document.addEventListener("click",e=>{
+    if(e.target==popupOverlay || e.target==closedButton){
         popupOverlay.remove();
-    }    
+        closedButton.parentNode.remove();
+    }
 });
 // END POPUP BOX FOR OUR-GALLERY SECTION

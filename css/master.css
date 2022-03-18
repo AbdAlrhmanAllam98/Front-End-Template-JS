@@ -54,51 +54,15 @@ a{
 .background-main-color{
     background-color: var(--main-color);
 }
+.background-white{
+    background-color: white;
+}
+.text-white{
+    color: white;
+}
 .container{
     padding: 0px 15px;
     margin: 0px auto;
-}
-.popup-overlay{
-    position:fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    transition: 0.3s;
-    z-index: 1000;
-}
-.popup-box{
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 1001;
-}
-.popup-box .closed-button{
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-}
-.popup-box h3{
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin: 0 0 20px;
-    text-align: center;
-}
-.popup-box img{
-    max-width: 100%;
 }
 /*Start Media Query For Globe*/
 @media (max-width:575px) {
@@ -130,7 +94,6 @@ a{
 /* End Globe */
 /* Start Settings Box */
 .settings-box{
-    background-color: white;
     position: fixed;
     width: 200px;
     height: 100%;
@@ -147,7 +110,6 @@ a{
     right: -30px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: white;
     text-align: center;
     cursor: pointer;
 }
@@ -179,9 +141,7 @@ a{
 .settings-box .option-box .yes,
 .settings-box .option-box .no{
     width: 50px;
-    background-color: #009688;
     padding: 4px 8px;
-    color: white;
     font-size: 14px;
     margin: 10px 3px;
     border-radius: 5px;
@@ -194,7 +154,6 @@ a{
 .settings-box .reset-option{
     width: 140px;
     display: block;
-    color: white;
     background-color: #F43;
     border: none;
     margin: 10px auto;
@@ -217,7 +176,6 @@ a{
     height: 20px;
     border: 3px solid var(--main-color);
     border-radius: 50%;
-    background-color: #FFF;
     margin: 20px auto;
     cursor: pointer;
 }
@@ -242,7 +200,6 @@ a{
     display: none;
     width: 100px;
     position: absolute;
-    color: #FFF;
     left: -115px;
     top: -5px;
     padding: 3px 6px;
@@ -252,12 +209,25 @@ a{
 }
 /* END NAVIGATION BULLETS  */
 /* Start Header */
+.headroom {
+    will-change: transform;
+    transition: transform 200ms linear;
+  }
+.headroom--pinned{
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    transform: translateY(0%);
+}
+.headroom--unpinned {
+    transform: translateY(-100%);
+}
 header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: var(--gray-dark-background-color);
-    color: white;
     padding: 10px;
 }
 header .logo{
@@ -272,7 +242,6 @@ header .nav-bar{
 }
 header li a{
     font-size: 1.1rem;
-    color: white;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -291,12 +260,10 @@ header .toggle-menu{
 header .toggle-menu span{
     display: block;
     height: 4px;
-    background-color: #FFF;
     margin-bottom: 5px;
 }
 header .toggle-menu .aside-menu{
     width: 800%;
-    background-color: #FFF;
     position: absolute;
     top: 40px ;
     right: 20px;
@@ -309,7 +276,7 @@ header .toggle-menu ul::before{
     top: -14px;
     border-style: solid;
     border-width: 7px;
-    border-color: transparent transparent #FFF transparent ;
+    border-color: transparent transparent white transparent ;
 }
 header .aside-menu ul{
     display: none;
@@ -378,7 +345,6 @@ header .aside-menu li:not(:last-of-type){
     color: black;
 }
 .landing-page .landing-info p{
-    color: white;
     font-size: 1.2rem;
     margin: 10px 0 0;
 }
@@ -402,7 +368,6 @@ header .aside-menu li:not(:last-of-type){
     display: flex;
     padding: 15px;
     margin-bottom: 15px;
-    background-color: #fff;
     border-radius: 10px;
 }
 .skills .skill-progress h3{
@@ -432,10 +397,53 @@ header .aside-menu li:not(:last-of-type){
     width: 100%;
     padding: 4px;
     background-color: var(--gray-light-background-color);
-    border: 2px solid #fff;
+    border: 2px solid white;
     cursor: pointer;
 }
 /* END OUR-GALLERY */
+/* START POPUP BOX FOR GALLERY*/
+.popup-overlay{
+    position:fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: 0.3s;
+    z-index: 1000;
+}
+.popup-box{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1001;
+}
+.popup-box .closed-button{
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+.popup-box h3{
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0 0 20px;
+    text-align: center;
+}
+.popup-box img{
+    max-width: 100%;
+}
+/* END POPUP BOX FOR GALLERY*/
 /* START TIMELINE */
 .timeline-content::before{
     content: '';
@@ -455,7 +463,6 @@ header .aside-menu li:not(:last-of-type){
 .timeline-content .year{
     position: relative;
     width: 50px;
-    color: white;
     margin: 20px auto;
     padding: 3px 7px;
     text-align: center;
@@ -470,7 +477,7 @@ header .aside-menu li:not(:last-of-type){
     width: 14px;
     height: 14px;
     top: 20px;
-    background-color: #FFF;
+    background-color: white;
     border-radius: 50%;
     z-index: 3;
 }
@@ -508,7 +515,6 @@ header .aside-menu li:not(:last-of-type){
     left: -30px;
 }
 .timeline-content .content{
-    background-color: #fff;
     padding: 15px;
     border-radius: 10px;
     position: relative;
@@ -591,7 +597,6 @@ header .aside-menu li:not(:last-of-type){
     background-color: var(--gray-dark-background-color);
 }
 .testimonials h2{
-    color: white;
     text-align: start;
     position: relative;
     z-index: 2;
@@ -601,7 +606,6 @@ header .aside-menu li:not(:last-of-type){
     width: calc(98% /3);
     float: left;
     position: relative;
-    background-color: white;
     padding: 20px;
     border-radius: 10px;
     z-index: 2;
@@ -703,7 +707,6 @@ header .aside-menu li:not(:last-of-type){
     transition: 0.4s;
 }
 .contact form input[type="submit"]{
-    color: white;
     font-size: 25px;
     line-height: 20px;
 }
@@ -720,7 +723,6 @@ header .aside-menu li:not(:last-of-type){
 footer{
     background-color: var(--gray-dark-background-color);
     padding: 15px 0;
-    color: white;
     font-size: larger;
     font-weight: bold;
     text-align: center;
